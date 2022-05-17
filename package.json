@@ -1,0 +1,20 @@
+{
+    "name": "webservices",
+    "version": "0.1.0",
+    "description": "Online services for managing the connectivity of various DeviceFuture products.",
+    "main": "index.js",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/devicefuture/webservices.git"
+    },
+    "keywords": [],
+    "author": "@James-Livesey",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/devicefuture/webservices/issues"
+    },
+    "homepage": "https://github.com/devicefuture/webservices#readme",
+    "dependencies": {
+        "express": "^4.18.1"
+    }
+}
