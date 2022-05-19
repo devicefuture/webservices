@@ -14,7 +14,21 @@ app.get("/", function(request, response) {
 });
 
 app.get("/broadcasting/:channel", function(request, response) {
-    db.get(`broadcastingChannels.${request.params.channel}`).then(function(value) {
+    var channel = String(request.params.channel || "").toLowerCase();
+
+    if (!channel.match(/^[a-z0-9_]{1,20}$/)) {
+        response.status(404);
+
+        response.json({
+            status: "error",
+            code: "broadcastingInvalidChannelName",
+            message: "The specified broadcasting channel name is invalid"
+        });
+
+        return;
+    }
+
+    db.get(`broadcastingChannels.${channel}`).then(function(value) {
         if (value == null) {
             response.status(404);
 
@@ -35,7 +49,21 @@ app.get("/broadcasting/:channel", function(request, response) {
 });
 
 app.post("/broadcasting/:channel", function(request, response) {
-    db.get(`broadcastingChannels.${request.params.channel}`).then(function(value) {
+    var channel = String(request.params.channel || "").toLowerCase();
+
+    if (!channel.match(/^[a-z0-9_]{1,20}$/)) {
+        response.status(404);
+
+        response.json({
+            status: "error",
+            code: "broadcastingInvalidChannelName",
+            message: "The specified broadcasting channel name is invalid"
+        });
+
+        return;
+    }
+
+    db.get(`broadcastingChannels.${channel}`).then(function(value) {
         if (value != null) {
             response.status(409);
 
@@ -48,7 +76,7 @@ app.post("/broadcasting/:channel", function(request, response) {
             return;
         }
 
-        return db.set(`broadcastingChannels.${request.params.channel}`, {
+        return db.set(`broadcastingChannels.${channel}`, {
             id: String(request.query.id || ""),
             dateCreated: Date.now()
         }).then(function() {
